@@ -143,3 +143,5 @@ DATABASE_URL=postgresql://user:pass@ep-xyz.neon.tech/neondb?sslmode=require
 | Vercel.com | React frontend |
 
 Set env vars on each platform and deploy!
+
+postgresql://neondb_owner:npg_8L1TsSOmEXHZ@ep-gentle-tree-aobk3dri.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require
