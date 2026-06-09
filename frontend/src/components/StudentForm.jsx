@@ -96,6 +96,8 @@ export default function StudentForm({ initialData, onSubmit, loading, submitLabe
         <div>
           <label className="label">Phone Number *</label>
           <input
+            type="tel"
+            maxLength={10}
             name="phone_number" value={form.phone_number} onChange={handleChange}
             placeholder="10-digit mobile number"
             className={`input ${errors.phone_number ? 'input-error' : ''}`}
