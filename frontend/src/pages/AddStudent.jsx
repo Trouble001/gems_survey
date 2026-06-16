@@ -22,7 +22,7 @@ export default function AddStudent() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6">
+    <div className="max-w-2xl mx-auto px-2 py-6">
       <h1 className="text-xl font-bold text-primary-900 mb-4">➕ Add New Student</h1>
       <div className="card">
         <StudentForm onSubmit={handleSubmit} loading={loading} submitLabel="Add Student" />
