@@ -72,7 +72,7 @@ export default function Dashboard() {
             <button className="btn btn-success" onClick={handleExport} disabled={exportLoading}>
               {exportLoading ? '⏳...' : '📊 Excel'}
             </button>
-            <button className="btn btn-amber no-print" onClick={() => window.open('/print', '_blank')}>
+            <button className="btn btn-amber no-print" onClick={() => navigate('/print')}>
               🖨️ Print
             </button>
             <button className="btn btn-primary" onClick={() => navigate('/add')}>

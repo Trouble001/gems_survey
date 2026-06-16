@@ -37,8 +37,9 @@ class Village(models.Model):
 class Student(models.Model):
     name = models.CharField(max_length=200)
     father_name = models.CharField(max_length=200)
-    phone_number = models.CharField(max_length=15, unique=True)
+    phone_number = models.CharField(max_length=15)
     class_enrolled = models.CharField(max_length=20, choices=CLASS_CHOICES)
+    locality = models.CharField(max_length=50, blank=True, null=True)
     village = models.ForeignKey(
         Village,
         on_delete=models.SET_NULL,

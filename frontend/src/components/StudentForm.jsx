@@ -17,7 +17,7 @@ const CLASS_LABELS = {
   'Basic Computer':'Basic Computer','DCA':'DCA','BCA':'BCA','PGDCA':'PGDCA',
 }
 
-const INITIAL = { name: '', father_name: '', phone_number: '', class_enrolled: '', village: '' }
+const INITIAL = { name: '', father_name: '', phone_number: '', class_enrolled: '', locality: '', village: '' }
 
 export default function StudentForm({ initialData, onSubmit, loading, submitLabel = 'Save Student' }) {
   const dispatch = useDispatch()
@@ -37,6 +37,7 @@ export default function StudentForm({ initialData, onSubmit, loading, submitLabe
         father_name: initialData.father_name || '',
         phone_number: initialData.phone_number || '',
         class_enrolled: initialData.class_enrolled || '',
+        locality: initialData.locality || '',
         village: initialData.village || '',
       })
     }
@@ -46,8 +47,19 @@ export default function StudentForm({ initialData, onSubmit, loading, submitLabe
     const e = {}
     if (!form.name.trim()) e.name = 'Name is required'
     if (!form.father_name.trim()) e.father_name = "Father's name is required"
-    if (!form.phone_number.trim()) e.phone_number = 'Phone number is required'
-    else if (form.phone_number.replace(/\D/g, '').length < 10) e.phone_number = 'Enter valid 10-digit number'
+    
+    if (!form.phone_number.trim()) {
+      e.phone_number = 'Phone number is required'
+    } else {
+      const digits = form.phone_number.replace(/\D/g, '')
+    
+      if (digits.length !== 10) {
+        e.phone_number = 'Enter valid 10-digit number'
+      } else if (['0','1','2','3','4','5'].includes(digits[0])) {
+        e.phone_number = 'Phone number must start with 6, 7, 8 or 9'
+      }
+    }
+
     if (!form.class_enrolled) e.class_enrolled = 'Select a class'
     if (!form.village) e.village = 'Select a village'
     return e
@@ -56,6 +68,18 @@ export default function StudentForm({ initialData, onSubmit, loading, submitLabe
   const handleChange = (e) => {
     const { name, value } = e.target
     setForm(f => ({ ...f, [name]: value }))
+    
+    // Real-time phone validation
+    if (name === 'phone_number') {
+      const digits = value.replace(/\D/g, '')
+      if (digits.length > 0 && ['0','1','2','3','4','5'].includes(digits[0])) {
+        setErrors(er => ({ ...er, phone_number: 'Must start with 6, 7, 8 or 9' }))
+      } else if (digits.length === 10) {
+        setErrors(er => ({ ...er, phone_number: '' }))
+      } else {
+        setErrors(er => ({ ...er, phone_number: '' }))
+      }
+    }
     if (errors[name]) setErrors(er => ({ ...er, [name]: '' }))
   }
 
@@ -120,8 +144,19 @@ export default function StudentForm({ initialData, onSubmit, loading, submitLabe
           {errors.class_enrolled && <p className="text-red-500 text-xs mt-1">{errors.class_enrolled}</p>}
         </div>
 
+        {/* Locality */}
+        <div>
+          <label className="label">Locality/Area</label>
+          <input
+            type="text"
+            name="locality" value={form.locality} onChange={handleChange}
+            placeholder="Locality/Area"
+            className='input'
+          />
+        </div>
+
         {/* Village Dropdown */}
-        <div className="md:col-span-2">
+        <div className="">
           <label className="label">Village *</label>
           <select
             name="village" value={form.village} onChange={handleChange}

@@ -22,7 +22,7 @@ export default function PrintView() {
     <div className="p-4 bg-white min-h-screen">
       {/* Header */}
       <div className="text-center mb-4">
-        <h1 className="text-xl font-black">HiTech Computer Institute — Dhurkot Janjgir</h1>
+        <h1 className="text-xl font-black">Genius English Medium School — Dhurkot Janjgir</h1>
         <p className="text-sm text-slate-500 mt-1">
           Student Admission Survey · Printed: {new Date().toLocaleDateString('en-IN', {
             day: 'numeric', month: 'long', year: 'numeric'
@@ -46,7 +46,7 @@ export default function PrintView() {
       <table className="w-full border-collapse text-xs">
         <thead>
           <tr className="bg-primary-800 text-white">
-            {['#', 'Name', "Father's Name", 'Phone', 'Class', 'Village', 'Date'].map(h => (
+            {['#', 'Name', "Father's Name", 'Phone', 'Class', 'Locality', 'Village', 'Date'].map(h => (
               <th key={h} className="px-3 py-2 text-left font-semibold text-xs uppercase tracking-wide border border-blue-700">{h}</th>
             ))}
           </tr>
@@ -54,13 +54,14 @@ export default function PrintView() {
         <tbody>
           {students.map((s, idx) => (
             <tr key={s.id} className={idx % 2 === 0 ? 'bg-blue-50' : 'bg-white'}>
-              <td className="px-3 py-1.5 border border-slate-200 text-slate-400">{idx + 1}</td>
+              <td className="px-3 py-1.5 border border-slate-200 text-slate-600">{idx + 1}</td>
               <td className="px-3 py-1.5 border border-slate-200 font-semibold">{s.name}</td>
               <td className="px-3 py-1.5 border border-slate-200">{s.father_name}</td>
               <td className="px-3 py-1.5 border border-slate-200">{s.phone_number}</td>
               <td className="px-3 py-1.5 border border-slate-200">{s.class_enrolled_display || s.class_enrolled}</td>
+              <td className="px-3 py-1.5 border border-slate-200">{s.locality || '—'}</td>
               <td className="px-3 py-1.5 border border-slate-200">{s.village_name || '—'}</td>
-              <td className="px-3 py-1.5 border border-slate-200 text-slate-400">
+              <td className="px-3 py-1.5 border border-slate-200 text-slate-600">
                 {s.created_at ? new Date(s.created_at).toLocaleDateString('en-IN') : '—'}
               </td>
             </tr>
@@ -68,7 +69,7 @@ export default function PrintView() {
         </tbody>
       </table>
 
-      <p className="text-xs text-slate-400 text-center mt-3">Total: {students.length} students</p>
+      <p className="text-xs text-slate-600 text-center mt-3">Total: {students.length} students</p>
     </div>
   )
 }

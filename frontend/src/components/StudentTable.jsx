@@ -36,6 +36,7 @@ export default function StudentTable({ students, loading, onDelete }) {
               <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider">Father's Name</th>
               <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider">Phone</th>
               <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider">Class</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider">Locality</th>
               <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider">Village</th>
               <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider w-24">Actions</th>
             </tr>
@@ -53,6 +54,9 @@ export default function StudentTable({ students, loading, onDelete }) {
                 </td>
                 <td className="px-4 py-3">
                   <span className="badge-green">{s.class_enrolled_display || s.class_enrolled}</span>
+                </td>
+                <td className="px-4 py-3">
+                  <span className="badge-blue">{s.locality || '—'}</span>
                 </td>
                 <td className="px-4 py-3">
                   <span className="badge-blue">{s.village_name || '—'}</span>

@@ -17,8 +17,9 @@ def export_students_excel(queryset):
     border = Border(left=thin, right=thin, top=thin, bottom=thin)
     alt_fill = PatternFill("solid", fgColor="EFF6FF")
 
-    headers = ["S.No", "Name", "Father's Name", "Phone Number", "Class", "Village", "Registered On"]
-    col_widths = [6, 24, 24, 16, 18, 20, 22]
+    headers = ["S.No", "Name", "Father's Name", "Phone Number",
+               "Class", "Locality", "Village", "Registered On"]
+    col_widths = [6, 24, 24, 16, 18, 20, 20, 22]
 
     for col_idx, (header, width) in enumerate(zip(headers, col_widths), start=1):
         cell = ws.cell(row=1, column=col_idx, value=header)
@@ -37,8 +38,10 @@ def export_students_excel(queryset):
             student.father_name,
             student.phone_number,
             student.get_class_enrolled_display(),
+            student.locality if student.locality else '-',
             student.village.name if student.village else '—',
-            student.created_at.strftime("%d %b %Y") if student.created_at else '',
+            student.created_at.strftime(
+                "%d %b %Y") if student.created_at else '',
         ]
         fill = alt_fill if row_idx % 2 == 0 else None
         for col_idx, value in enumerate(row_data, start=1):

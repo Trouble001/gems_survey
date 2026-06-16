@@ -31,7 +31,7 @@ class StudentSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'name', 'father_name', 'phone_number',
             'class_enrolled', 'class_enrolled_display',
-            'village', 'village_name',
+            'locality', 'village', 'village_name',
             'created_at',
         ]
         read_only_fields = ['id', 'created_at']
@@ -39,11 +39,21 @@ class StudentSerializer(serializers.ModelSerializer):
     def validate_phone_number(self, value):
         cleaned = ''.join(c for c in value if c.isdigit() or c == '+')
         if len(cleaned) < 10:
-            raise serializers.ValidationError("Phone number must be at least 10 digits.")
+            raise serializers.ValidationError(
+                "Phone number must be at least 10 digits."
+            )
+        if cleaned[0] in ['0', '1', '2', '3', '4', '5']:
+            raise serializers.ValidationError(
+                "Phone number must start with 6, 7, 8 or 9."
+            )
+
         return cleaned
 
     def validate_name(self, value):
         return value.strip()
 
     def validate_father_name(self, value):
+        return value.strip()
+
+    def validate_locality(self, value):
         return value.strip()
